@@ -8,22 +8,24 @@ class ConvexHull:
         self.hull = []
         self.is_calculated = False
 
+    def cross(self, a, b, c):
+            return (b.x - a.x)*(c.y - a.y) - (b.y - a.y)*(c.x - a.x)
+
     def calculate_monotone_chain(self):
         if len(self.points) < 3:
             return
         n = len(self.points)
         self.hull = []
-        counter_clockwise = lambda a, b, c: (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x)
         ordered_points = sorted(self.points, key=lambda p: (p.x, p.y))
         U = []
         L = []
         for i in range(n):
-            while len(L) >= 2 and counter_clockwise(L[-2], L[-1], ordered_points[i]) <= 0:
+            while len(L) >= 2 and self.cross(L[-2], L[-1], ordered_points[i]) <= 0:
                 L.pop()
             L.append(ordered_points[i])
 
         for i in range(n - 1, -1, -1):
-            while len(U) >= 2 and counter_clockwise(U[-2], U[-1], ordered_points[i]) <= 0:
+            while len(U) >= 2 and self.cross(U[-2], U[-1], ordered_points[i]) <= 0:
                 U.pop()
             U.append(ordered_points[i])
         L.pop()
@@ -48,15 +50,12 @@ class ConvexHull:
 
     def point_in_hull(self, point):
         if not self.hull or len(self.hull) < 3:
-            return False  # No hay hull válido
-
-        def cross(a, b, c):
-            return (b.x - a.x)*(c.y - a.y) - (b.y - a.y)*(c.x - a.x)
+            return False
 
         n = len(self.hull)
         for i in range(n):
             a = self.hull[i]
             b = self.hull[(i + 1) % n]
-            if cross(a, b, point) < 0:
+            if self.cross(a, b, point) < 0:
                 return False
         return True
