@@ -1,0 +1,3 @@
+structure,phase,method_name,total_time,cumulative_time,per_call_time
+static,calculate_and_query,calculate_monotone_chain,0.002511,0.004968,0.004968
+static,calculate_and_query,is_inside_convex_hull,0.001061,0.001915,0.000010
