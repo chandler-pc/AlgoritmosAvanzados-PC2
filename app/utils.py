@@ -1,5 +1,5 @@
 import pygame
-from config import HULL_LINE_COLOR, POINT_COLOR_DEFAULT, POINT_RADIUS
+from app.config import HULL_LINE_COLOR, POINT_COLOR_DEFAULT, POINT_RADIUS
 
 def draw_point(surface, point, color=None, radius=None):
     pygame.draw.circle(
