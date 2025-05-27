@@ -6,9 +6,6 @@ class ConvexHull:
         self.hull = []
         self.is_calculated = False
 
-    def cross(self, a, b, c):
-        return (b.x - a.x)*(c.y - a.y) - (b.y - a.y)*(c.x - a.x)
-
     def calculate_monotone_chain(self):
         if len(self.points) < 3:
             self.hull = []
@@ -19,12 +16,13 @@ class ConvexHull:
         L, U = [], []
 
         for p in ordered:
-            while len(L) >= 2 and self.cross(L[-2], L[-1], p) <= 0:
+            while len(L) >= 2 and Point.cross(L[-2], L[-1], p) <= 0:
                 L.pop()
+
             L.append(p)
 
         for p in reversed(ordered):
-            while len(U) >= 2 and self.cross(U[-2], U[-1], p) <= 0:
+            while len(U) >= 2 and Point.cross(U[-2], U[-1], p) <= 0:
                 U.pop()
             U.append(p)
 
@@ -40,7 +38,7 @@ class ConvexHull:
         n = len(self.hull)
         for i in range(n):
             a, b = self.hull[i], self.hull[(i + 1) % n]
-            if self.cross(a, b, point) < 0:
+            if Point.cross(a, b, point) < 0:
                 return False
         return True
 
@@ -48,3 +46,8 @@ class ConvexHull:
         self.points.clear()
         self.hull.clear()
         self._is_calculated = False
+
+    def __str__(self):
+        if not self.hull:
+            return "Convex hull is empty."
+        return "Convex Hull:\n" + "\n".join(str(p) for p in self.hull)
