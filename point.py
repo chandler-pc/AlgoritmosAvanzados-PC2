@@ -1,7 +1,3 @@
-
-POINT_SIZE = 10
-POINT_COLOR = (255, 255, 255)
-
 class Point:
     def __init__(self, x, y):
         self.x = x
