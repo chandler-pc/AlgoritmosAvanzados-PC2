@@ -1,0 +1,12 @@
+# Tamaño de pantalla
+SIZE = (800, 600)
+
+# Colores
+BACKGROUND_COLOR = (0, 0, 0)
+HULL_LINE_COLOR = (0, 255, 0)
+POINT_COLOR_INSIDE = (0, 255, 0)
+POINT_COLOR_OUTSIDE = (255, 0, 0)
+POINT_COLOR_DEFAULT = (255, 255, 255)
+
+# Punto
+POINT_RADIUS = 5

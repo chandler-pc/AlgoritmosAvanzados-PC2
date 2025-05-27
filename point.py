@@ -1,6 +1,7 @@
 import pygame
 
-POINT_SIZE = 5
+POINT_SIZE = 10
+POINT_COLOR = (255, 255, 255)
 
 class Point:
     def __init__(self, x, y):
@@ -11,4 +12,4 @@ class Point:
         return (self.x, self.y)
 
     def draw(self, surface):
-        pygame.draw.circle(surface, (0, 0, 0), (self.x, self.y), POINT_SIZE // 2)
+        pygame.draw.circle(surface, POINT_COLOR, (self.x, self.y), POINT_SIZE // 2)

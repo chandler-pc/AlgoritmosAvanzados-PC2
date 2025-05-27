@@ -1,5 +1,6 @@
 from point import Point
 import pygame
+from config import HULL_LINE_COLOR
 
 class ConvexHull:
     def __init__(self):
@@ -12,7 +13,7 @@ class ConvexHull:
             return
         n = len(self.points)
         self.hull = []
-        counter_clockwise = lambda a,b,c: (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x)
+        counter_clockwise = lambda a, b, c: (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x)
         ordered_points = sorted(self.points, key=lambda p: (p.x, p.y))
         U = []
         L = []
@@ -21,7 +22,7 @@ class ConvexHull:
                 L.pop()
             L.append(ordered_points[i])
 
-        for i in range(n-1, -1, -1):
+        for i in range(n - 1, -1, -1):
             while len(U) >= 2 and counter_clockwise(U[-2], U[-1], ordered_points[i]) <= 0:
                 U.pop()
             U.append(ordered_points[i])
@@ -33,7 +34,7 @@ class ConvexHull:
     def append_point(self, x, y):
         point = Point(x, y)
         self.points.append(point)
-        self.is_calculated = False
+        # self.is_calculated = False
 
     def draw(self, surface):
         for point in self.points:
@@ -43,5 +44,19 @@ class ConvexHull:
             for i in range(n):
                 initial_point = self.hull[i].get_tuple()
                 final_point = self.hull[(i + 1) % len(self.hull)].get_tuple()
-                pygame.draw.aaline(surface, (0, 0, 255), initial_point, final_point)
-                
+                pygame.draw.aaline(surface, HULL_LINE_COLOR, initial_point, final_point)
+
+    def point_in_hull(self, point):
+        if not self.hull or len(self.hull) < 3:
+            return False  # No hay hull válido
+
+        def cross(a, b, c):
+            return (b.x - a.x)*(c.y - a.y) - (b.y - a.y)*(c.x - a.x)
+
+        n = len(self.hull)
+        for i in range(n):
+            a = self.hull[i]
+            b = self.hull[(i + 1) % n]
+            if cross(a, b, point) < 0:
+                return False
+        return True
