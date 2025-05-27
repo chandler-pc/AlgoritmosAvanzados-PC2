@@ -1,8 +1,8 @@
 import pygame
-from convex_hull import ConvexHull
-from point import Point
-from utils import draw_point, draw_convex_hull
-from config import SIZE, BACKGROUND_COLOR, POINT_COLOR_INSIDE, POINT_COLOR_OUTSIDE, POINT_RADIUS
+from app.convex_hull import ConvexHull
+from app.point import Point
+from app.utils import draw_point, draw_convex_hull
+from app.config import SIZE, BACKGROUND_COLOR, POINT_COLOR_INSIDE, POINT_COLOR_OUTSIDE, POINT_RADIUS
 
 convex_hull = ConvexHull()
 test_points = []
@@ -27,7 +27,7 @@ def main():
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
-                    convex_hull.calculate_monotone_chain()
+                    convex_hull.get_hull()
 
         screen.fill(BACKGROUND_COLOR)
 

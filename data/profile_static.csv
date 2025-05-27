@@ -1,0 +1,4 @@
+structure,phase,method_name,total_time,cumulative_time,per_call_time
+static,insertions_with_recalculation,get_hull,0.007789,10.311376,0.005156
+static,insertions_with_recalculation,append_point,0.004026,0.004900,0.000002
+static,query_only,is_inside_convex_hull,0.001388,0.002514,0.000013
