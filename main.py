@@ -1,6 +1,7 @@
 import pygame
 from convex_hull import ConvexHull
 from point import Point
+from utils import draw_point, draw_convex_hull
 from config import SIZE, BACKGROUND_COLOR, POINT_COLOR_INSIDE, POINT_COLOR_OUTSIDE, POINT_RADIUS
 
 convex_hull = ConvexHull()
@@ -29,11 +30,16 @@ def main():
                     convex_hull.calculate_monotone_chain()
 
         screen.fill(BACKGROUND_COLOR)
-        convex_hull.draw(screen)
+
+        for p in convex_hull.points:
+            draw_point(screen, p, color=(255, 255, 255), radius=POINT_RADIUS)
+
+        if convex_hull.is_calculated:
+            draw_convex_hull(screen, convex_hull)
 
         for p in test_points:
-            color = POINT_COLOR_INSIDE if convex_hull.point_in_hull(p) else POINT_COLOR_OUTSIDE
-            pygame.draw.circle(screen, color, p.get_tuple(), POINT_RADIUS)
+            color = POINT_COLOR_INSIDE if convex_hull.is_inside_convex_hull(p) else POINT_COLOR_OUTSIDE
+            draw_point(screen, p, color=color, radius=POINT_RADIUS)
 
         pygame.display.flip()
 
