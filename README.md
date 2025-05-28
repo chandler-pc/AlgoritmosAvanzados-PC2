@@ -1,4 +1,4 @@
-# Bentley-Saxe dynamics applied to a geometric data structure
+# Bentley-Saxe dynamization applied to a geometric data structure
 
 ## Run tests
 
