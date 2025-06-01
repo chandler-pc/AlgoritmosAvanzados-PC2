@@ -1,12 +1,13 @@
+from typing import List
 from app.point import Point
 
 class ConvexHull:
     def __init__(self):
-        self.points = []
-        self.hull = []
-        self.is_calculated = False
+        self.points: List[Point] = []
+        self.hull: List[Point] = []
+        self.is_calculated: bool = False
 
-    def calculate_monotone_chain(self):
+    def calculate_monotone_chain(self) -> list[Point]:
         try:
             if len(self.points) == 0:
                 self.hull = []
@@ -70,7 +71,7 @@ class ConvexHull:
             self.is_calculated = True
             return self.hull
 
-    def remove_point(self, point):
+    def remove_point(self, point: Point) -> bool:
         try:
             if point in self.points:
                 self.points.remove(point)
@@ -92,7 +93,7 @@ class ConvexHull:
         except Exception as e:
             print(f"Error appending point ({x}, {y}): {e}")
 
-    def is_inside_convex_hull(self, point):
+    def is_inside_convex_hull(self, point: Point) -> bool:
         try:
             if not self.hull or len(self.hull) < 3:
                 return False

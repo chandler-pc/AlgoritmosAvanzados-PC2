@@ -1,15 +1,15 @@
 from app.convex_hull import ConvexHull
 from app.point import Point
-from typing import Optional
+from typing import Optional, List
 
 class DynamicConvexHull:
     def __init__(self):
-        self.structures: list[Optional[ConvexHull]] = []
-        self.deletions: list[set] = []
+        self.structures: List[Optional[ConvexHull]] = []
+        self.deletions: List[set] = []
         self._global_hull: ConvexHull = None
         self._is_outdated = True
 
-    def insert(self, point):
+    def insert(self, point: Point):
         try:
             new_ch = ConvexHull()
             new_ch.append_point(point.x, point.y)
