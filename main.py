@@ -27,7 +27,7 @@ def main():
                 elif event.button == 2:
                     for p in convex_hull.points:
                         if Point.distance(p, Point(x, y)) < POINT_RADIUS:
-                            convex_hull.points.remove(p)
+                            convex_hull.remove_point(p)
                             break
 
             if event.type == pygame.KEYDOWN:
