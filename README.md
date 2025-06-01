@@ -59,6 +59,10 @@ python -m unittest discover -s tests
 python main.py
 ```
 
+### 3. Profiling, gráficas y performance
+
+Ejecutar el archivo llamado `benchmark_convex_hull.ipynb`
+
 ## Documentación de la API
 
 ### Clase Point
@@ -68,6 +72,7 @@ Point(x: float, y: float)
 ```
 
 Representa un punto en el plano. Métodos importantes:
+
 - `__eq__, __lt__`: Comparación lexicográfica.
 - `cross(p1, p2, p3)`: Producto cruzado de tres puntos.
 

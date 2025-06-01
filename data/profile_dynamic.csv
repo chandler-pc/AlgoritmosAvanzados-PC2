@@ -1,3 +1,3 @@
 structure,phase,method_name,total_time,cumulative_time,per_call_time
-dynamic,insertions_with_recalculation,insert,0.006645,0.070908,0.000035
-dynamic,query_only,is_inside_convex_hull,0.001394,0.002511,0.000013
+dynamic,insertions_with_recalculation,insert,0.007733,0.050855,0.000025
+dynamic,query_only,is_inside_convex_hull,0.001434,0.002524,0.000013
