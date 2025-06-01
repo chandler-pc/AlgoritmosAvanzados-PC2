@@ -10,24 +10,36 @@ class DynamicConvexHull:
         self._is_outdated = True
 
     def insert(self, point):
-        new_ch = ConvexHull()
-        new_ch.append_point(point.x, point.y)
-        new_ch.get_hull()
-        
+        try:
+            new_ch = ConvexHull()
+            new_ch.append_point(point.x, point.y)
+            new_ch.get_hull()
+        except Exception as e:
+            print(f"Error creando nuevo ConvexHull: {str(e)}")
+            return
+
         i = 0
         while i < len(self.structures):
-            if self.structures[i] is None: # new structure
+            if self.structures[i] is None:
                 self.structures[i] = new_ch
                 self._is_outdated = True
                 return
-            else: # combine structures
+            else:
                 combined = ConvexHull()
                 combined.points = self.structures[i].get_hull() + new_ch.get_hull()
-                combined.get_hull()
-                new_ch = combined
+                
+                try:
+                    combined.get_hull()
+                except Exception as e:
+                    print(f"Error combinando hulls en nivel {i}: {str(e)}")
+                    i += 1
+                    continue
+                
                 self.structures[i] = None
                 self.deletions[i] = set()
+                new_ch = combined
                 i += 1
+        
         self.structures.append(new_ch)
         self.deletions.append(set())
         self._is_outdated = True
@@ -39,31 +51,55 @@ class DynamicConvexHull:
                 all_points = [(p.x, p.y) for p in S.points]
                 if key in all_points:
                     self.deletions[i].add(key)
+                    
                     if len(self.deletions[i]) > len(all_points) // 2:
                         new_points = [p for p in S.points if (p.x, p.y) not in self.deletions[i]]
-                        new_ch = ConvexHull()
-                        for p in new_points:
-                            new_ch.append_point(p.x, p.y)
-                        new_ch.get_hull()
+                        
+                        if len(new_points) < 3 and len(new_points) > 0:
+                            new_ch = ConvexHull()
+                            for p in new_points:
+                                new_ch.append_point(p.x, p.y)
+                            new_ch.hull = new_points.copy()
+                        elif len(new_points) == 0:
+                            new_ch = None
+                        else:
+                            new_ch = ConvexHull()
+                            for p in new_points:
+                                new_ch.append_point(p.x, p.y)
+                            try:
+                                new_ch.get_hull()
+                            except Exception as e:
+                                print(f"Error reconstruyendo hull: {str(e)}")
+                                new_ch.hull = new_points.copy()
+                        
                         self.structures[i] = new_ch
                         self.deletions[i] = set()
+                    
                     self._is_outdated = True
                     return True
         return False
-
 
     def _recalculate_global_hull(self):
         all_points = []
         for S, deleted in zip(self.structures, self.deletions):
             if S is not None:
-                all_points += [p for p in S.hull if (p.x, p.y) not in deleted]
-                
-        for s in self.structures:
-            if s:
-                all_points.extend(s.hull)
+                source = S.hull if hasattr(S, 'hull') and S.hull else S.points
+                all_points += [p for p in source if (p.x, p.y) not in deleted]
+        
         final = ConvexHull()
         final.points = all_points
-        final.get_hull()
+        
+        if len(all_points) == 0:
+            final.hull = []
+        elif len(all_points) < 3:
+            final.hull = all_points.copy()
+        else:
+            try:
+                final.get_hull()
+            except Exception as e:
+                print(f"Error calculando hull global: {str(e)}")
+                final.hull = all_points.copy()
+        
         self._global_hull = final
         self._is_outdated = False
 
@@ -72,8 +108,10 @@ class DynamicConvexHull:
             self._recalculate_global_hull()
         return self._global_hull.hull
 
-
     def is_inside(self, point):
         self.get_hull()
-        return self._global_hull.is_inside_convex_hull(point)
-
+        try:
+            return self._global_hull.is_inside_convex_hull(point)
+        except Exception as e:
+            print(f"Error verificando punto en hull: {str(e)}")
+            return False
