@@ -1,9 +1,9 @@
 import matplotlib.pyplot as plt
 import time
 import random
-from point import Point
-from convex_hull import ConvexHull
-from dynamic_convex_hull import DynamicConvexHull
+from app.point import Point
+from app.convex_hull import ConvexHull
+from app.dynamic_convex_hull import DynamicConvexHull
 
 def generate_points(n, max_coord=1000):
     return [Point(random.randint(0, max_coord), random.randint(0, max_coord)) for _ in range(n)]

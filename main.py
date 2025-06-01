@@ -24,6 +24,11 @@ def main():
                     convex_hull.append_point(x, y)
                 elif event.button == 3:
                     test_points.append(Point(x, y))
+                elif event.button == 2:
+                    for p in convex_hull.points:
+                        if Point.distance(p, Point(x, y)) < POINT_RADIUS:
+                            convex_hull.points.remove(p)
+                            break
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:

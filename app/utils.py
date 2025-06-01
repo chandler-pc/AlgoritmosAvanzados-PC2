@@ -9,6 +9,14 @@ def draw_point(surface, point, color=None, radius=None):
         radius if radius else POINT_RADIUS
     )
 
+def delete_point(surface, point):
+    pygame.draw.circle(
+        surface,
+        (0, 0, 0),
+        point.get_tuple(),
+        POINT_RADIUS
+    )
+
 def draw_convex_hull(surface, convex_hull):
     if convex_hull.is_calculated and len(convex_hull.hull) >= 3:
         for i in range(len(convex_hull.hull)):
