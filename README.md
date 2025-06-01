@@ -1,5 +1,7 @@
 # Proyecto 7: Dinamización de Bentley–Saxe aplicada a Convex Hull 2D
 
+Video : https://drive.google.com/file/d/1OXq5fhsdOoe-eRQaIKLFUJty8NbU1bzj/view?usp=sharing
+
 ## Descripción y Motivación Teórica
 
 Este proyecto aborda la dinamización de la envolvente convexa (Convex Hull) en 2D mediante la técnica de Bentley–Saxe, una estrategia diseñada para convertir estructuras estáticas eficientes en estructuras dinámicas.
