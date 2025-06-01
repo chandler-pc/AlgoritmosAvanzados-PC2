@@ -4,16 +4,12 @@
 
 Este proyecto implementa y analiza la técnica de **Bentley-Saxe** para dinamizar una estructura geométrica estática: la **envolvente convexa (Convex Hull) en 2D**. Permite realizar inserciones y eliminaciones eficientes de puntos, y compara el rendimiento contra el enfoque estático clásico (reconstrucción completa tras cada cambio).
 
----
-
 ## ¿Qué es la técnica de Bentley-Saxe?
 
 La técnica de **Bentley-Saxe** permite transformar estructuras de datos eficientes solo en modo estático (batch) en **estructuras dinámicas**.  
 Consiste en mantener varias subestructuras estáticas de tamaños crecientes exponenciales (S₀, S₁, S₂, ...). Las inserciones y eliminaciones disparan reconstrucciones o fusiones de estas subestructuras, permitiendo mantener operaciones dinámicas con buen rendimiento amortizado.
 
 Esto es especialmente útil en estructuras como la **Convex Hull**, donde modificar incrementalmente el conjunto es costoso.
-
----
 
 ## Estructura del Proyecto
 
@@ -24,8 +20,6 @@ Esto es especialmente útil en estructuras como la **Convex Hull**, donde modifi
 - `tests/`: Pruebas automáticas.
 - Otros scripts de visualización/benchmark.
 - `requirements.txt`: Dependencias.
-
----
 
 ## Cómo ejecutar
 

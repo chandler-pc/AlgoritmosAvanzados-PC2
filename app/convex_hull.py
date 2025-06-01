@@ -30,7 +30,12 @@ class ConvexHull:
         self.is_calculated = True
         self.hull = U + L
         return self.hull
-
+    
+    def remove_point(self, point):
+        if point in self.points:
+            self.points.remove(point)
+        self.hull.clear()
+        self.is_calculated = False
 
 
     def append_point(self, x, y):
