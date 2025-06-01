@@ -32,6 +32,7 @@ AlgoritmosAvanzados-PC2/
 │   └── test_dynamic_convex_hull.py # Pruebas para estructura dinámica
 │
 ├── main.py                     # Script de ejemplo/visualización
+├── benchmark_convex_hull.ipynb                     # Benchmark, profiling/
 └── requirements.txt            # Dependencias del entorno
 ```
 
